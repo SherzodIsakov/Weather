@@ -4,8 +4,8 @@ services:
   weather:
     container_name: weather
     ports:
-      - 9000:80
-      - 9001:443
+      - 9040:80
+      - 9041:443
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80

@@ -24,7 +24,6 @@
 //            _httpContextAccessor = httpContextAccessor;
 //            _tokenSettings = tokenSettings.Value;
 //        }
-
 //        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
 //        {
 //            var authHeader = request.Headers.Authorization;
@@ -36,7 +35,6 @@
 
 //            return await base.SendAsync(request, cancellationToken);
 //        }
-
 //        protected virtual void AddAuthorizationHeader(HttpRequestMessage request)
 //        {
 //            if (_httpContextAccessor.HttpContext != null && _httpContextAccessor.HttpContext.Request.Headers.TryGetValue(AuthorizationHeaderKey, out var value))

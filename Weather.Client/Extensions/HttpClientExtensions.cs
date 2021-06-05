@@ -41,14 +41,12 @@
 
 //            return services;
 //        }
-
 //        internal static IServiceCollection AddHttpClientHandlers(this IServiceCollection services)
 //        {
 //            services.TryAddTransient<WeatherHttpClientHandler>();
 
 //            return services;
 //        }
-
 //        private static HttpMessageHandler BuildHandler(this IServiceProvider provider)
 //        {
 //            var authHandler = provider.GetService<WeatherHttpClientHandler>();
