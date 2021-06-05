@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,76 +15,56 @@ namespace Weather.Services.Services
     {
         string token = "2caaefdcafd242c8eae17b5f7dc6337a";
 
-        public async Task<TemperatureModel> GetTemperatureAsync(string city, string metric)
+        private readonly IMapper _mapper;
+        public WeatherService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public async Task<TemperatureModel> GetTemperatureAsync(string city)
         {
             string urlOrig = Helper.GetTemperatureFromCitynameUrl;
-            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("METRIC", metric).Replace("TOKEN", token);
+            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("TOKEN", token);
 
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(urlRequest);
                 var jsonContent = await response.Content?.ReadAsStringAsync();
-                var temperature = JsonConvert.DeserializeObject<Temperature>(jsonContent);
+                var temperature = JsonConvert.DeserializeObject<WeatherEntity>(jsonContent);
 
-                TemperatureModel temperatureModel = new TemperatureModel
-                {
-                    City = city,
-                    Date = DateTime.Now.ToString(),
-                    Metric = Helper.Metrics.FirstOrDefault(x => x.Value == metric).Key,
-                    Temperature = temperature.MainTemp.Temp
-                };
-
-                return temperatureModel;
+                var iemperatureModel = _mapper.Map<TemperatureModel>(temperature);
+                return iemperatureModel;
             }
         }
-        public async Task<WindModel> GetWindAsync(string city, string metric)
+        public async Task<WindModel> GetWindAsync(string city)
         {
             string urlOrig = Helper.GetTemperatureFromCitynameUrl;
-            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("METRIC", metric).Replace("TOKEN", token);
+            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("TOKEN", token);
 
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(urlRequest);
                 var jsonContent = await response.Content?.ReadAsStringAsync();
-                var temperature = JsonConvert.DeserializeObject<Temperature>(jsonContent);
+                var temperature = JsonConvert.DeserializeObject<WeatherEntity>(jsonContent);
 
-                WindModel windModel = new WindModel
-                {
-                    City = city,
-                    Speed = temperature.Wind.Speed,
-                    Metric = Helper.Metrics.FirstOrDefault(x => x.Value == metric).Key,
-                    Direction = Helper.Direction(temperature.Wind.Deg)
-                };
-
-                return windModel;
+                var iemperatureModel = _mapper.Map<WindModel>(temperature);
+                iemperatureModel.Direction = Helper.Direction(temperature.wind.Deg);
+                return iemperatureModel;
             }
         }
-        public async Task<IEnumerable<TemperatureModel>> GetFutureAsync(string city, string metric)
+        public async Task<FuturesModel> GetFutureAsync(string city)
         {
             string urlOrig = Helper.GetFutureFromCityNameUrl;
-            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("METRIC", metric).Replace("TOKEN", token);
+            string urlRequest = urlOrig.Replace("CITYNAME", city).Replace("TOKEN", token);
 
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(urlRequest);
                 var jsonContent = await response.Content?.ReadAsStringAsync();
 
-                var futureModels = JsonConvert.DeserializeObject<Futures>(jsonContent);
-
-                List<TemperatureModel> ForecastModels = new List<TemperatureModel>();
-                foreach (var item in futureModels.Future)
-                {
-                    ForecastModels.Add(
-                        new TemperatureModel
-                        {
-                            City = city,
-                            Date = item.Date,
-                            Metric = Helper.Metrics.FirstOrDefault(x => x.Value == metric).Key,
-                            Temperature = item.MainTemp.Temp
-                        });
-                }
-
-                return ForecastModels;
+                var futures = JsonConvert.DeserializeObject<Futures>(jsonContent);
+                var iemperatureModel = _mapper.Map<FuturesModel>(futures);
+                return iemperatureModel;
             }
         }
     }

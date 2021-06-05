@@ -12,14 +12,14 @@ namespace Weather.Services.Interfaces
         /// <param name="city">Город</param>
         /// <param name="metric">Метрика (celsius|fahrenheit)</param>
         /// <returns></returns>
-        Task<TemperatureModel> GetTemperatureAsync(string city, string metric);
+        Task<TemperatureModel> GetTemperatureAsync(string city);
 
         /// <summary>
         /// Возвращает текущее направление и скорость ветра в указанном городе 
         /// </summary>
         /// <param name="city">Город</param>
         /// <returns></returns>
-        Task<WindModel> GetWindAsync(string city, string metric);
+        Task<WindModel> GetWindAsync(string city);
 
         /// <summary>
         /// Возвращает погоду на 5 дней вперед по указанному городу
@@ -27,7 +27,7 @@ namespace Weather.Services.Interfaces
         /// <param name="city">Город</param>
         /// <param name="metric">Метрика (celsius|fahrenheit)</param>
         /// <returns></returns>
-        Task<IEnumerable<TemperatureModel>> GetFutureAsync(string city, string metric);
+        Task<FuturesModel> GetFutureAsync(string city);
 
     }
 }

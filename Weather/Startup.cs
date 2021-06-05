@@ -19,6 +19,7 @@ namespace Weather
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Weather", Version = "v1" }); });
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddSingleton<ICityService, CityService>();
+            services.AddAutoMapper(typeof(Startup));
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

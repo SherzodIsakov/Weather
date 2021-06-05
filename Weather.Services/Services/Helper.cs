@@ -5,9 +5,9 @@ namespace Weather.Services.Services
 {
     public static class Helper
     {
-        public const string GetTemperatureFromCitynameUrl = "https://api.openweathermap.org/data/2.5/weather?q=CITYNAME&units=METRIC&appid=TOKEN";
-        public const string GetFutureFromCityNameUrl = "https://api.openweathermap.org/data/2.5/forecast?q=CITYNAME&units=METRIC&appid=TOKEN";
-        public const string GetWindFromCityNameUrl = "https://api.openweathermap.org/data/2.5/weather?q=CITYNAME&units=METRIC&appid=TOKEN";
+        public const string GetTemperatureFromCitynameUrl = "https://api.openweathermap.org/data/2.5/weather?q=CITYNAME&units=metric&appid=TOKEN";
+        public const string GetFutureFromCityNameUrl = "https://api.openweathermap.org/data/2.5/forecast?q=CITYNAME&units=metric&appid=TOKEN";
+        public const string GetWindFromCityNameUrl = "https://api.openweathermap.org/data/2.5/weather?q=CITYNAME&units=metric&appid=TOKEN";
 
         public static Dictionary<string, string> Metrics
         {

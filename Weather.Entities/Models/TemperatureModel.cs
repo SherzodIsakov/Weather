@@ -9,9 +9,11 @@ namespace Weather.Entities.Models
 {
     public class TemperatureModel
     {
-        public string Date { get; set; }
+        public string Date { get; set; } = DateTime.Now.ToString();
         public string City { get; set; }
         public string Temperature { get; set; }
-        public string Metric { get; set; }
-    }       
+        public string Metric { get; set; } = "celsius";       
+    }
+
+    
 }

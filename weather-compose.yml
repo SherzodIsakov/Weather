@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  weather:
+    container_name: weather
+    ports:
+      - 9000:80
+      - 9001:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=12345678
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/abct.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    build:
+      context: .
+      dockerfile: Weather/Dockerfile
+    restart: on-failure    
